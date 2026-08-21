@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gabriel Mondragón — Lead DevOps / Cloud Engineer</title>
+<meta name="description" content="Gabriel Mondragón — Lead DevOps / Cloud Engineer. AWS · Terraform · Kubernetes." />
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300..700;1,400&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#17150f; --panel:#1c1a13; --bar:#221f17; --fg:#e8e2d4; --dim:#8d8778;
+  --line:#332f24; --accent:#e08a4b; --accent2:#8fb98a; --sel:#3a3427;
+}
+:root[data-theme="light"]{
+  --bg:#f6f3ec; --panel:#fbf9f4; --bar:#efebe1; --fg:#2c281f; --dim:#7d7768;
+  --line:#ddd7c9; --accent:#b7602a; --accent2:#4d7b48; --sel:#e7e1d3;
+}
+html,body{margin:0;padding:0;background:var(--bg);}
+*{box-sizing:border-box;}
+::selection{background:var(--sel);}
+a{color:var(--accent);text-decoration:none;}
+a:hover{color:var(--accent2);text-decoration:underline;}
+input{font:inherit;color:inherit;background:none;border:0;outline:0;}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+#term::-webkit-scrollbar{width:10px}
+#term::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+</style>
+</helmet>
+<div style="height:100dvh;background:var(--bg);color:var(--fg);font-family:'JetBrains Mono',ui-monospace,monospace;display:flex;flex-direction:column;align-items:center;padding:clamp(12px,3vw,40px);">
+  <div style="width:100%;max-width:940px;display:flex;flex-direction:column;flex:1;min-height:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel);box-shadow:0 24px 60px -30px rgba(0,0,0,.55);">
+
+    <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bar);border-bottom:1px solid var(--line);">
+      <div style="display:flex;gap:6px;">
+        <div style="width:11px;height:11px;border-radius:50%;background:#d8604d;"></div>
+        <div style="width:11px;height:11px;border-radius:50%;background:#dda94a;"></div>
+        <div style="width:11px;height:11px;border-radius:50%;background:#7fae74;"></div>
+      </div>
+      <div style="flex:1;text-align:center;font-size:12px;color:var(--dim);letter-spacing:.04em;">gabriel@mondragon: ~</div>
+      <div style="display:flex;gap:8px;">
+        <button onClick="{{ toggleLang }}" style="font:inherit;font-size:11px;letter-spacing:.06em;padding:3px 9px;border:1px solid var(--line);border-radius:5px;background:transparent;color:var(--dim);cursor:pointer;" style-hover="color:var(--fg);border-color:var(--accent);">{{ langLabel }}</button>
+        <button onClick="{{ toggleTheme }}" style="font:inherit;font-size:11px;letter-spacing:.06em;padding:3px 9px;border:1px solid var(--line);border-radius:5px;background:transparent;color:var(--dim);cursor:pointer;" style-hover="color:var(--fg);border-color:var(--accent);">{{ themeLabel }}</button>
+      </div>
+    </div>
+
+    <div id="term" ref="{{ scrollRef }}" onClick="{{ focusInput }}" style="flex:1;min-height:0;overflow-y:auto;padding:22px clamp(16px,3vw,30px) 8px;font-size:14px;line-height:1.75;">
+      <sc-for list="{{ lines }}" as="l" hint-placeholder-count="4">
+        <div style="max-width:78ch;">
+          <sc-if value="{{ l.isGap }}"><div style="height:14px;"></div></sc-if>
+          <sc-if value="{{ l.isCmd }}">
+            <div style="display:flex;gap:10px;margin-top:16px;">
+              <span style="color:var(--accent2);">❯</span><span style="color:var(--fg);">{{ l.text }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ l.isHead }}">
+            <div style="color:var(--accent);font-weight:600;letter-spacing:.14em;font-size:12px;text-transform:uppercase;margin:14px 0 6px;">{{ l.text }}</div>
+          </sc-if>
+          <sc-if value="{{ l.isTitle }}">
+            <div style="font-size:clamp(20px,3.4vw,30px);font-weight:600;letter-spacing:-.01em;color:var(--fg);line-height:1.25;">{{ l.text }}</div>
+          </sc-if>
+          <sc-if value="{{ l.isTxt }}"><div style="color:var(--fg);text-wrap:pretty;">{{ l.text }}</div></sc-if>
+          <sc-if value="{{ l.isDim }}"><div style="color:var(--dim);text-wrap:pretty;">{{ l.text }}</div></sc-if>
+          <sc-if value="{{ l.isOk }}"><div style="color:var(--accent2);">{{ l.text }}</div></sc-if>
+          <sc-if value="{{ l.isErr }}"><div style="color:#d8604d;">{{ l.text }}</div></sc-if>
+          <sc-if value="{{ l.isBullet }}">
+            <div style="display:flex;gap:12px;color:var(--fg);text-wrap:pretty;"><span style="color:var(--dim);">–</span><span>{{ l.text }}</span></div>
+          </sc-if>
+          <sc-if value="{{ l.isKv }}">
+            <div style="display:grid;grid-template-columns:minmax(96px,120px) 1fr;gap:6px 18px;padding:5px 0;border-bottom:1px solid var(--line);">
+              <span style="color:var(--accent2);">{{ l.label }}</span><span style="color:var(--fg);text-wrap:pretty;">{{ l.text }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ l.isLink }}">
+            <div style="display:grid;grid-template-columns:minmax(96px,120px) 1fr;gap:6px 18px;padding:5px 0;border-bottom:1px solid var(--line);">
+              <span style="color:var(--accent2);">{{ l.label }}</span><a href="{{ l.href }}" target="_blank" rel="noreferrer">{{ l.text }}</a>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+
+      <sc-if value="{{ isTyping }}">
+        <div style="max-width:78ch;color:var(--dim);">{{ typingText }}<span style="display:inline-block;width:8px;background:var(--accent);animation:blink 1s steps(1) infinite;color:transparent;">.</span></div>
+      </sc-if>
+
+      <sc-if value="{{ ready }}">
+        <div style="display:flex;gap:10px;align-items:baseline;margin-top:18px;padding-bottom:14px;">
+          <span style="color:var(--accent2);">❯</span>
+          <input ref="{{ inputRef }}" value="{{ input }}" onChange="{{ onChange }}" onKeyDown="{{ onKeyDown }}" placeholder="{{ placeholder }}" spellcheck="false" autocomplete="off" style="flex:1;color:var(--fg);caret-color:var(--accent);font-size:14px;" />
+        </div>
+      </sc-if>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:8px;padding:12px clamp(16px,3vw,30px);border-top:1px solid var(--line);background:var(--bar);">
+      <sc-for list="{{ menu }}" as="m" hint-placeholder-count="5">
+        <button onClick="{{ m.run }}" style="font:inherit;font-size:12.5px;padding:5px 12px;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--dim);cursor:pointer;transition:color .15s,border-color .15s;" style-hover="color:var(--accent);border-color:var(--accent);">{{ m.cmd }}</button>
+      </sc-for>
+    </div>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;instantBoot&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;},&quot;typeSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:12,&quot;min&quot;:2,&quot;max&quot;:40,&quot;step&quot;:1,&quot;unit&quot;:&quot;ms&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+const DATA = {
+  en: {
+    boot: [
+      { k: 'dim', text: 'mondragon.sh — initializing session...' },
+      { k: 'ok', text: '✓ environment loaded · region sa-east-1 · shell ready' },
+      { k: 'gap' },
+      { k: 'title', text: 'Gabriel Mondragón' },
+      { k: 'dim', text: 'Lead DevOps / Cloud Engineer · AWS · Terraform · Kubernetes · Cajamarca, Perú' },
+      { k: 'gap' },
+      { k: 'txt', text: "Type a command or click one below. Run /help for the full list." }
+    ],
+    placeholder: 'type /about, /skills or /contact',
+    help: [
+      { k: 'head', text: 'available commands' },
+      { k: 'kv', label: '/about', text: 'professional profile' },
+      { k: 'kv', label: '/skills', text: 'technical stack by depth' },
+      { k: 'kv', label: '/contact', text: 'where to reach me' },
+      { k: 'kv', label: '/theme', text: 'switch light / dark' },
+      { k: 'kv', label: '/es', text: 'cambiar a español' },
+      { k: 'kv', label: '/clear', text: 'clear the screen' }
+    ],
+    about: [
+      { k: 'head', text: 'professional profile' },
+      { k: 'txt', text: 'Currently Lead DevOps Engineer at Seek, responsible for multi-application cloud architecture supporting several production systems including lottery, betting, and airline operations platforms. Proven track record of designing infrastructure from scratch, leading technical migrations, and operating under strict compliance and availability requirements.' },
+      { k: 'gap' },
+      { k: 'txt', text: 'Self-taught software engineer with 15+ years of experience spanning full-stack web development and AWS cloud infrastructure. Began building Python/Django platforms in 2010 and progressively expanded into DevOps, designing and managing complex hybrid environments (on-premise + AWS) for enterprise clients — a background that makes infrastructure decisions land close to the applications they serve.' },
+      { k: 'head', text: 'areas of expertise' },
+      { k: 'bullet', text: 'AWS hybrid cloud architecture · VPN site-to-site & private networking' },
+      { k: 'bullet', text: 'Infrastructure as code with Terraform · CI/CD and GitOps pipelines' },
+      { k: 'bullet', text: 'Container orchestration: Docker, Kubernetes, ECS/EKS' },
+      { k: 'bullet', text: 'Observability with Grafana + Prometheus' },
+      { k: 'bullet', text: 'Secrets management & IAM security · async systems with Celery, SQS/SNS, Redis' }
+    ],
+    skills: [
+      { k: 'head', text: 'technical skills' },
+      { k: 'kv', label: 'Cloud', text: 'AWS: EC2/Auto Scaling, ECS/EKS, RDS/Aurora, S3/CloudFront, VPC, VPN Site-to-Site, IAM, Secrets Manager, Parameter Store, SQS/SNS, ElastiCache · Azure (familiar)' },
+      { k: 'kv', label: 'IaC & Config', text: 'Terraform · Ansible · Linux server administration & hardening (SELinux, AppArmor, SSH, PAM, firewall) · DNS (BIND/named)' },
+      { k: 'kv', label: 'CI/CD', text: 'GitHub Actions · AWS CodePipeline/CodeDeploy · GitLab CI/CD · self-hosted GitLab (HA) · Git · ArgoCD (familiar)' },
+      { k: 'kv', label: 'Containers', text: 'Docker · Kubernetes · ECS/EKS · Helm-style deployment workflows' },
+      { k: 'kv', label: 'Observability', text: 'Grafana · Prometheus · production alerting across dev, UAT, pre-prod and prod' },
+      { k: 'kv', label: 'Data & Async', text: 'PostgreSQL · MySQL · MongoDB · Redis · Celery · SQS/SNS · Kafka (familiar)' },
+      { k: 'kv', label: 'Development', text: 'Python · Django · Flask · FastAPI · REST APIs (JWT, OAuth2) · JavaScript · TypeScript · React · Next.js' },
+      { k: 'head', text: 'selected work' },
+      { k: 'bullet', text: 'Migrated 120+ repositories from three providers into a self-hosted HA GitLab on AWS (S3 backend, RDS PostgreSQL, ElastiCache).' },
+      { k: 'bullet', text: 'Designed and provisioned cloud infrastructure from scratch for lottery, betting and regulatory production platforms.' },
+      { k: 'bullet', text: 'Built private DNS infrastructure (BIND on EC2) for service discovery across VPCs and hybrid networks.' }
+    ],
+    contact: [
+      { k: 'head', text: 'contact' },
+      { k: 'link', label: 'Email', text: 'gabriel@mondragon.pe', href: 'mailto:gabriel@mondragon.pe' },
+      { k: 'link', label: 'GitHub', text: 'github.com/gmondragon', href: 'https://github.com/gmondragon' },
+      { k: 'link', label: 'LinkedIn', text: 'linkedin.com/in/gmondragon', href: 'https://www.linkedin.com/in/gmondragon' },
+      { k: 'link', label: 'X', text: '@gmondragon', href: 'https://x.com/gmondragon' },
+      { k: 'gap' },
+      { k: 'dim', text: 'Based in Cajamarca, Perú (UTC−5) · open to remote work.' }
+    ],
+    notfound: (c) => 'command not found: ' + c + " — try /help",
+    cleared: 'screen cleared.'
+  },
+  es: {
+    boot: [
+      { k: 'dim', text: 'mondragon.sh — iniciando sesión...' },
+      { k: 'ok', text: '✓ entorno cargado · región sa-east-1 · consola lista' },
+      { k: 'gap' },
+      { k: 'title', text: 'Gabriel Mondragón' },
+      { k: 'dim', text: 'Lead DevOps / Cloud Engineer · AWS · Terraform · Kubernetes · Cajamarca, Perú' },
+      { k: 'gap' },
+      { k: 'txt', text: 'Escribe un comando o haz clic abajo. Usa /help para ver la lista completa.' }
+    ],
+    placeholder: 'escribe /about, /skills o /contact',
+    help: [
+      { k: 'head', text: 'comandos disponibles' },
+      { k: 'kv', label: '/about', text: 'perfil profesional' },
+      { k: 'kv', label: '/skills', text: 'stack técnico por nivel' },
+      { k: 'kv', label: '/contact', text: 'cómo contactarme' },
+      { k: 'kv', label: '/theme', text: 'cambiar claro / oscuro' },
+      { k: 'kv', label: '/en', text: 'switch to English' },
+      { k: 'kv', label: '/clear', text: 'limpiar la pantalla' }
+    ],
+    about: [
+      { k: 'head', text: 'perfil profesional' },
+      { k: 'txt', text: 'Actualmente Lead DevOps Engineer en Seek, a cargo de la arquitectura cloud multi-aplicación que soporta sistemas en producción de lotería, apuestas y operaciones aéreas. Experiencia comprobada diseñando infraestructura desde cero, liderando migraciones técnicas y operando bajo requisitos estrictos de cumplimiento y disponibilidad.' },
+      { k: 'gap' },
+      { k: 'txt', text: 'Ingeniero de software autodidacta con más de 15 años de experiencia entre el desarrollo web full-stack y la infraestructura cloud en AWS. Empecé construyendo plataformas Python/Django en 2010 y fui expandiéndome hacia DevOps, diseñando y administrando entornos híbridos complejos (on-premise + AWS) para clientes corporativos: un recorrido que mantiene las decisiones de infraestructura cerca de las aplicaciones que soporta.' },
+      { k: 'head', text: 'áreas de especialidad' },
+      { k: 'bullet', text: 'Arquitectura híbrida en AWS · VPN site-to-site y redes privadas' },
+      { k: 'bullet', text: 'Infraestructura como código con Terraform · pipelines CI/CD y GitOps' },
+      { k: 'bullet', text: 'Orquestación de contenedores: Docker, Kubernetes, ECS/EKS' },
+      { k: 'bullet', text: 'Observabilidad con Grafana + Prometheus' },
+      { k: 'bullet', text: 'Gestión de secretos y seguridad IAM · sistemas asíncronos con Celery, SQS/SNS, Redis' }
+    ],
+    skills: [
+      { k: 'head', text: 'habilidades técnicas' },
+      { k: 'kv', label: 'Cloud', text: 'AWS: EC2/Auto Scaling, ECS/EKS, RDS/Aurora, S3/CloudFront, VPC, VPN Site-to-Site, IAM, Secrets Manager, Parameter Store, SQS/SNS, ElastiCache · Azure (familiar)' },
+      { k: 'kv', label: 'IaC y Config', text: 'Terraform · Ansible · administración y hardening de servidores Linux (SELinux, AppArmor, SSH, PAM, firewall) · DNS (BIND/named)' },
+      { k: 'kv', label: 'CI/CD', text: 'GitHub Actions · AWS CodePipeline/CodeDeploy · GitLab CI/CD · GitLab self-hosted (HA) · Git · ArgoCD (familiar)' },
+      { k: 'kv', label: 'Contenedores', text: 'Docker · Kubernetes · ECS/EKS · flujos de despliegue con Helm' },
+      { k: 'kv', label: 'Observabilidad', text: 'Grafana · Prometheus · alertas en producción sobre dev, UAT, pre-prod y prod' },
+      { k: 'kv', label: 'Datos y Async', text: 'PostgreSQL · MySQL · MongoDB · Redis · Celery · SQS/SNS · Kafka (familiar)' },
+      { k: 'kv', label: 'Desarrollo', text: 'Python · Django · Flask · FastAPI · REST APIs (JWT, OAuth2) · JavaScript · TypeScript · React · Next.js' },
+      { k: 'head', text: 'trabajo destacado' },
+      { k: 'bullet', text: 'Migración de más de 120 repositorios desde tres proveedores a un GitLab self-hosted en alta disponibilidad sobre AWS (S3, RDS PostgreSQL, ElastiCache).' },
+      { k: 'bullet', text: 'Diseño y aprovisionamiento de infraestructura cloud desde cero para plataformas de lotería, apuestas y sistemas regulatorios en producción.' },
+      { k: 'bullet', text: 'Infraestructura DNS privada (BIND sobre EC2) para descubrimiento de servicios entre VPCs y redes híbridas.' }
+    ],
+    contact: [
+      { k: 'head', text: 'contacto' },
+      { k: 'link', label: 'Email', text: 'gabriel@mondragon.pe', href: 'mailto:gabriel@mondragon.pe' },
+      { k: 'link', label: 'GitHub', text: 'github.com/gmondragon', href: 'https://github.com/gmondragon' },
+      { k: 'link', label: 'LinkedIn', text: 'linkedin.com/in/gmondragon', href: 'https://www.linkedin.com/in/gmondragon' },
+      { k: 'link', label: 'X', text: '@gmondragon', href: 'https://x.com/gmondragon' },
+      { k: 'gap' },
+      { k: 'dim', text: 'Radicado en Cajamarca, Perú (UTC−5) · disponible para trabajo remoto.' }
+    ],
+    notfound: (c) => 'comando no encontrado: ' + c + ' — prueba /help',
+    cleared: 'pantalla limpia.'
+  }
+};
+
+class Component extends DCLogic {
+  state = { lines: [], typing: null, ready: false, input: '', theme: 'dark', lang: 'en', history: [], hpos: -1 };
+
+  constructor(p) {
+    super(p);
+    this.scrollRef = React.createRef();
+    this.inputRef = React.createRef();
+    this.queue = [];
+  }
+
+  componentDidMount() {
+    const theme = (typeof localStorage !== 'undefined' && localStorage.getItem('gm_theme')) || 'dark';
+    const lang = (typeof localStorage !== 'undefined' && localStorage.getItem('gm_lang')) || 'en';
+    document.documentElement.dataset.theme = theme;
+    this.setState({ theme, lang });
+    this.boot(lang);
+  }
+
+  componentWillUnmount() { clearTimeout(this.timer); }
+
+  componentDidUpdate() {
+    const el = this.scrollRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }
+
+  boot(lang) {
+    const inst = this.props.instantBoot;
+    const seq = DATA[lang].boot;
+    if (inst) { this.setState({ lines: seq.slice(), ready: true }); return; }
+    this.queue = seq.slice();
+    this.next();
+  }
+
+  next() {
+    if (!this.queue.length) {
+      this.setState({ ready: true }, () => this.focusInput());
+      return;
+    }
+    const item = this.queue.shift();
+    if (item.k === 'gap' || item.k === 'title') {
+      this.setState(s => ({ lines: s.lines.concat(item) }));
+      this.timer = setTimeout(() => this.next(), item.k === 'title' ? 260 : 90);
+      return;
+    }
+    const speed = Number(this.props.typeSpeed ?? 12);
+    let i = 0;
+    const tick = () => {
+      i += 2;
+      if (i >= item.text.length) {
+        this.setState(s => ({ lines: s.lines.concat(item), typing: null }));
+        this.timer = setTimeout(() => this.next(), 180);
+      } else {
+        this.setState({ typing: item.text.slice(0, i) });
+        this.timer = setTimeout(tick, speed);
+      }
+    };
+    tick();
+  }
+
+  focusInput = () => { const el = this.inputRef.current; if (el) el.focus(); };
+
+  push(arr) { this.setState(s => ({ lines: s.lines.concat(arr) })); }
+
+  run = (raw) => {
+    const t = DATA[this.state.lang];
+    const cmd = String(raw || '').trim().toLowerCase().replace(/^\//, '');
+    if (!cmd) return;
+    const echo = { k: 'cmd', text: '/' + cmd };
+    this.setState(s => ({ history: s.history.concat('/' + cmd), hpos: -1 }));
+    if (cmd === 'clear' || cmd === 'cls') { this.setState({ lines: [{ k: 'dim', text: t.cleared }] }); return; }
+    if (cmd === 'theme' || cmd === 'dark' || cmd === 'light') { this.push([echo]); this.toggleTheme(); return; }
+    if (cmd === 'es' || cmd === 'en' || cmd === 'lang') { this.push([echo]); this.setLang(cmd === 'lang' ? (this.state.lang === 'en' ? 'es' : 'en') : cmd); return; }
+    if (cmd === 'help' || cmd === '?' || cmd === 'ls') { this.push([echo].concat(t.help)); return; }
+    if (cmd === 'about' || cmd === 'whoami') { this.push([echo].concat(t.about)); return; }
+    if (cmd === 'skills' || cmd === 'stack') { this.push([echo].concat(t.skills)); return; }
+    if (cmd === 'contact' || cmd === 'hire') { this.push([echo].concat(t.contact)); return; }
+    this.push([echo, { k: 'err', text: t.notfound('/' + cmd) }]);
+  };
+
+  toggleTheme = () => {
+    const theme = this.state.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = theme;
+    try { localStorage.setItem('gm_theme', theme); } catch (e) {}
+    this.setState({ theme });
+  };
+
+  setLang = (lang) => {
+    try { localStorage.setItem('gm_lang', lang); } catch (e) {}
+    this.setState({ lang });
+  };
+
+  toggleLang = () => this.setLang(this.state.lang === 'en' ? 'es' : 'en');
+
+  onKeyDown = (e) => {
+    if (e.key === 'Enter') { this.run(this.state.input); this.setState({ input: '' }); return; }
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      const h = this.state.history;
+      if (!h.length) return;
+      const p = this.state.hpos < 0 ? h.length - 1 : Math.max(0, this.state.hpos - 1);
+      this.setState({ hpos: p, input: h[p] });
+      return;
+    }
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      const h = this.state.history;
+      if (this.state.hpos < 0) return;
+      const p = this.state.hpos + 1;
+      if (p >= h.length) this.setState({ hpos: -1, input: '' });
+      else this.setState({ hpos: p, input: h[p] });
+      return;
+    }
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const cur = this.state.input.replace(/^\//, '').toLowerCase();
+      const hit = ['about', 'skills', 'contact', 'help', 'theme', 'clear'].find(c => cur && c.startsWith(cur));
+      if (hit) this.setState({ input: '/' + hit });
+    }
+  };
+
+  renderVals() {
+    const t = DATA[this.state.lang];
+    const lines = this.state.lines.map((l, i) => ({
+      key: i, label: l.label, text: l.text, href: l.href,
+      isGap: l.k === 'gap', isCmd: l.k === 'cmd', isHead: l.k === 'head', isTitle: l.k === 'title',
+      isTxt: l.k === 'txt', isDim: l.k === 'dim', isOk: l.k === 'ok', isErr: l.k === 'err',
+      isBullet: l.k === 'bullet', isKv: l.k === 'kv', isLink: l.k === 'link'
+    }));
+    const menu = ['/about', '/skills', '/contact', '/help', '/clear'].map(c => ({ cmd: c, run: () => { this.run(c); this.focusInput(); } }));
+    return {
+      lines, menu,
+      isTyping: !!this.state.typing,
+      typingText: this.state.typing || '',
+      ready: this.state.ready,
+      input: this.state.input,
+      placeholder: t.placeholder,
+      onChange: (e) => this.setState({ input: e.target.value }),
+      onKeyDown: this.onKeyDown,
+      inputRef: this.inputRef,
+      scrollRef: this.scrollRef,
+      focusInput: this.focusInput,
+      toggleTheme: this.toggleTheme,
+      toggleLang: this.toggleLang,
+      themeLabel: this.state.theme === 'dark' ? '☾ dark' : '☀ light',
+      langLabel: this.state.lang === 'en' ? 'EN' : 'ES'
+    };
+  }
+}
+</script>
+</body>
+</html>

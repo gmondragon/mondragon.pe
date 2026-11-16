@@ -1,18 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gabriel Mondragón — Lead DevOps &amp; Cloud Engineer · AWS Certified</title>
-<meta name="description" content="Gabriel Mondragón — Lead DevOps &amp; Cloud Engineer with 15+ years across software development and cloud infrastructure. AWS Certified AI Practitioner and Cloud Practitioner." />
-<script src="./support.js"></script>
+<title>Gabriel Mondragón | Lead DevOps &amp; Cloud Engineer in Peru</title>
+<meta name="description" content="AWS-certified Lead DevOps &amp; Cloud Engineer in Peru with 15+ years of experience. Explore my work in AWS, Terraform, Kubernetes, CI/CD, and cloud infrastructure." />
+<link rel="canonical" href="https://mondragon.pe/" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300..700;1,400&amp;display=swap" rel="stylesheet" />
+<meta property="og:type" content="profile" />
+<meta property="og:url" content="https://mondragon.pe/" />
+<meta property="og:site_name" content="Gabriel Mondragón" />
+<meta property="og:title" content="Gabriel Mondragón | Lead DevOps &amp; Cloud Engineer" />
+<meta property="og:description" content="AWS-certified engineer in Peru with 15+ years across software development, cloud infrastructure, and production operations." />
+<meta property="og:locale" content="en_US" />
+<meta property="profile:first_name" content="Gabriel" />
+<meta property="profile:last_name" content="Mondragón" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:creator" content="@mondraggon" />
+<meta name="twitter:title" content="Gabriel Mondragón | Lead DevOps &amp; Cloud Engineer" />
+<meta name="twitter:description" content="AWS, Terraform, Kubernetes, and CI/CD. Explore my skills, certifications, and cloud engineering work." />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": "https://mondragon.pe/#webpage",
+  "url": "https://mondragon.pe/",
+  "name": "Gabriel Mondragón | Lead DevOps & Cloud Engineer in Peru",
+  "inLanguage": ["en", "es"],
+  "mainEntity": {
+    "@type": "Person",
+    "@id": "https://mondragon.pe/#person",
+    "name": "Gabriel Mondragón",
+    "url": "https://mondragon.pe/",
+    "jobTitle": "Lead DevOps & Cloud Engineer",
+    "description": "AWS-certified engineer based in Peru with 15+ years of experience across software development, cloud infrastructure, and production operations.",
+    "homeLocation": { "@type": "Country", "name": "Peru" },
+    "knowsAbout": ["Amazon Web Services", "Terraform", "Kubernetes", "CI/CD", "Cloud infrastructure", "Python", "Django", "Observability"],
+    "hasCredential": [
+      { "@type": "EducationalOccupationalCredential", "name": "AWS Certified AI Practitioner - AIF-C01", "credentialCategory": "Certification" },
+      { "@type": "EducationalOccupationalCredential", "name": "AWS Certified Cloud Practitioner - CLF-C02", "credentialCategory": "Certification" }
+    ],
+    "sameAs": ["https://github.com/gmondragon", "https://www.linkedin.com/in/gabrielmondragon/", "https://x.com/mondraggon"]
+  }
+}
+</script>
+<style>
+  x-dc { display: none; }
+  html { scroll-padding-top: 24px; }
+  body { margin: 0; background: var(--bg, #17150f); color: var(--fg, #e8e2d4); }
+  .profile { box-sizing: border-box; max-width: 940px; margin: 0 auto; padding: 32px clamp(16px, 3vw, 30px) 48px; font: 16px/1.75 'JetBrains Mono', ui-monospace, monospace; overflow-wrap: anywhere; }
+  .profile h1 { font-size: clamp(24px, 4vw, 34px); line-height: 1.3; }
+  .profile h2 { margin-top: 32px; color: var(--accent, #e08a4b); font-size: 20px; }
+  .profile h3 { font-size: 16px; }
+  .profile a { color: var(--accent, #e08a4b); text-decoration: underline; }
+  .profile a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+  .profile nav { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+</style>
+<script src="./support.js" defer></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300..700;1,400&display=swap" rel="stylesheet" />
 <style>
 :root{
   --bg:#17150f; --panel:#1c1a13; --bar:#221f17; --fg:#e8e2d4; --dim:#8d8778;
@@ -112,7 +163,8 @@ input{font:inherit;color:inherit;background:none;border:0;outline:0;}
     </div>
 
     <div style="display:flex;flex-wrap:wrap;gap:8px;padding:12px clamp(16px,3vw,30px);border-top:1px solid var(--line);background:var(--bar);">
-      <sc-for list="{{ menu }}" as="m" hint-placeholder-count="5">
+      <a href="#profile" style="font-size:12.5px;padding:5px 12px;align-self:center;">{{ profileLabel }}</a>
+      <sc-for list="{{ menu }}" as="m" hint-placeholder-count="6">
         <button onClick="{{ m.run }}" style="font:inherit;font-size:12.5px;padding:5px 12px;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--dim);cursor:pointer;transition:color .15s,border-color .15s;" style-hover="color:var(--accent);border-color:var(--accent);">{{ m.cmd }}</button>
       </sc-for>
     </div>
@@ -121,6 +173,57 @@ input{font:inherit;color:inherit;background:none;border:0;outline:0;}
 </div>
 
 </x-dc>
+<main id="profile" class="profile" lang="en" aria-labelledby="profile-title">
+  <header>
+    <h1 id="profile-title">Gabriel Mondragón — Lead DevOps &amp; Cloud Engineer</h1>
+    <p>AWS-certified engineer based in Peru (UTC−5), open to remote work. I bring 15+ years of experience across software development, cloud infrastructure, and production operations.</p>
+    <nav aria-label="Profile sections">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#work">Selected work</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <section id="about" aria-labelledby="about-title">
+    <h2 id="about-title">Cloud infrastructure and DevOps engineering</h2>
+    <p>I design and manage AWS and hybrid environments, automate infrastructure and delivery pipelines, and lead technical migrations for platforms with strict availability and compliance requirements. My experience spans lottery, betting, and airline operations.</p>
+    <p>My background in full-stack development with Python and Django helps me connect application needs with infrastructure decisions, from private networking and security to deployment and observability.</p>
+  </section>
+  <section id="skills" aria-labelledby="skills-title">
+    <h2 id="skills-title">Technical skills</h2>
+    <ul>
+      <li><strong>AWS and networking:</strong> EC2, ECS/EKS, RDS/Aurora, S3/CloudFront, VPC, site-to-site VPN, IAM, and secrets management.</li>
+      <li><strong>Infrastructure and delivery:</strong> Terraform, Linux administration and hardening, Docker, Kubernetes, GitHub Actions, AWS CodePipeline/CodeDeploy, and GitLab CI/CD.</li>
+      <li><strong>Observability and data:</strong> Grafana, Prometheus, PostgreSQL, MySQL, MongoDB, Redis, Celery, and SQS/SNS.</li>
+      <li><strong>Development:</strong> Python, Django, Flask, FastAPI, REST APIs, JavaScript, TypeScript, React, and Next.js.</li>
+    </ul>
+  </section>
+  <section id="certifications" aria-labelledby="certifications-title">
+    <h2 id="certifications-title">AWS certifications</h2>
+    <h3>AWS Certified AI Practitioner - AIF-C01</h3>
+    <p>Foundational knowledge of AI, machine learning, and generative AI on AWS, including use case selection, responsible AI, and security considerations.</p>
+    <h3>AWS Certified Cloud Practitioner - CLF-C02</h3>
+    <p>Foundational knowledge of AWS cloud concepts, core services, security, and pricing. Supports informed decisions about cloud services, shared responsibility, and costs.</p>
+  </section>
+  <section id="work" aria-labelledby="work-title">
+    <h2 id="work-title">Selected work</h2>
+    <ul>
+      <li>Migrated 120+ repositories from three providers into a self-hosted, highly available GitLab on AWS using S3, RDS PostgreSQL, and ElastiCache.</li>
+      <li>Designed and provisioned cloud infrastructure from scratch for lottery, betting, and regulatory production platforms.</li>
+      <li>Built private DNS infrastructure with BIND on EC2 for service discovery across VPCs and hybrid networks.</li>
+    </ul>
+  </section>
+  <section id="contact" aria-labelledby="contact-title">
+    <h2 id="contact-title">Contact Gabriel Mondragón</h2>
+    <p>Based in Peru and available for remote work. Reach me at <a href="mailto:gabriel@mondragon.pe">gabriel@mondragon.pe</a>.</p>
+    <nav aria-label="Social profiles">
+      <a href="https://github.com/gmondragon">GitHub</a>
+      <a href="https://www.linkedin.com/in/gabrielmondragon/">LinkedIn</a>
+      <a href="https://x.com/mondraggon">X (@mondraggon)</a>
+    </nav>
+  </section>
+</main>
 <script type="text/x-dc" data-dc-script data-props="{&quot;instantBoot&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;},&quot;typeSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:12,&quot;min&quot;:2,&quot;max&quot;:40,&quot;step&quot;:1,&quot;unit&quot;:&quot;ms&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
 const DATA = {
   en: {
@@ -140,6 +243,7 @@ const DATA = {
       { k: 'head', text: 'available commands' },
       { k: 'kv', label: '/about', text: 'professional profile' },
       { k: 'kv', label: '/skills', text: 'technical stack by depth' },
+      { k: 'kv', label: '/certs', text: 'certifications and skills · alias: /certifications' },
       { k: 'kv', label: '/contact', text: 'where to reach me' },
       { k: 'kv', label: '/theme', text: 'switch light / dark' },
       { k: 'kv', label: '/es', text: 'cambiar a español' },
@@ -176,6 +280,14 @@ const DATA = {
       { k: 'bullet', text: 'Designed and provisioned cloud infrastructure from scratch for lottery, betting and regulatory production platforms.' },
       { k: 'bullet', text: 'Built private DNS infrastructure (BIND on EC2) for service discovery across VPCs and hybrid networks.' }
     ],
+    certs: [
+      { k: 'head', text: 'certifications' },
+      { k: 'bullet', text: 'AWS Certified AI Practitioner - AIF-C01' },
+      { k: 'txt', text: 'Foundational knowledge of AI, machine learning, and generative AI on AWS, including use case selection, responsible AI, and security considerations.' },
+      { k: 'gap' },
+      { k: 'bullet', text: 'AWS Certified Cloud Practitioner - CLF-C02' },
+      { k: 'txt', text: 'Foundational knowledge of AWS cloud concepts, core services, security, and pricing. Supports informed decisions about cloud services, shared responsibility, and costs.' }
+    ],
     contact: [
       { k: 'head', text: 'contact' },
       { k: 'link', label: 'Email', text: 'gabriel@mondragon.pe', href: 'mailto:gabriel@mondragon.pe' },
@@ -205,6 +317,7 @@ const DATA = {
       { k: 'head', text: 'comandos disponibles' },
       { k: 'kv', label: '/about', text: 'perfil profesional' },
       { k: 'kv', label: '/skills', text: 'stack técnico por nivel' },
+      { k: 'kv', label: '/certs', text: 'certificaciones y habilidades · alias: /certifications' },
       { k: 'kv', label: '/contact', text: 'cómo contactarme' },
       { k: 'kv', label: '/theme', text: 'cambiar claro / oscuro' },
       { k: 'kv', label: '/en', text: 'switch to English' },
@@ -241,6 +354,14 @@ const DATA = {
       { k: 'bullet', text: 'Diseño y aprovisionamiento de infraestructura cloud desde cero para plataformas de lotería, apuestas y sistemas regulatorios en producción.' },
       { k: 'bullet', text: 'Infraestructura DNS privada (BIND sobre EC2) para descubrimiento de servicios entre VPCs y redes híbridas.' }
     ],
+    certs: [
+      { k: 'head', text: 'certificaciones' },
+      { k: 'bullet', text: 'AWS Certified AI Practitioner - AIF-C01' },
+      { k: 'txt', text: 'Conocimientos fundamentales de IA, machine learning e IA generativa en AWS, incluyendo selección de casos de uso, IA responsable y consideraciones de seguridad.' },
+      { k: 'gap' },
+      { k: 'bullet', text: 'AWS Certified Cloud Practitioner - CLF-C02' },
+      { k: 'txt', text: 'Conocimientos fundamentales de conceptos cloud, servicios principales, seguridad y precios de AWS. Facilita decisiones informadas sobre servicios cloud, responsabilidad compartida y costos.' }
+    ],
     contact: [
       { k: 'head', text: 'contacto' },
       { k: 'link', label: 'Email', text: 'gabriel@mondragon.pe', href: 'mailto:gabriel@mondragon.pe' },
@@ -255,7 +376,7 @@ const DATA = {
   }
 };
 
-const COMMANDS = ['about', 'skills', 'contact', 'help', 'theme', 'clear', 'en', 'es', 'lang', 'whoami', 'stack', 'hire', 'ls', '?', 'cls', 'dark', 'light'];
+const COMMANDS = ['about', 'skills', 'certs', 'certifications', 'contact', 'help', 'theme', 'clear', 'en', 'es', 'lang', 'whoami', 'stack', 'hire', 'ls', '?', 'cls', 'dark', 'light'];
 
 class Component extends DCLogic {
   state = { lines: [], typing: null, ready: false, input: '', theme: 'dark', lang: 'en', history: [], hpos: -1 };
@@ -271,6 +392,7 @@ class Component extends DCLogic {
     const theme = (typeof localStorage !== 'undefined' && localStorage.getItem('gm_theme')) || 'dark';
     const lang = (typeof localStorage !== 'undefined' && localStorage.getItem('gm_lang')) || 'en';
     document.documentElement.dataset.theme = theme;
+    document.documentElement.lang = lang;
     this.setState({ theme, lang });
     this.boot(lang);
   }
@@ -316,7 +438,7 @@ class Component extends DCLogic {
     tick();
   }
 
-  focusInput = () => { const el = this.inputRef.current; if (el) el.focus(); };
+  focusInput = () => { const el = this.inputRef.current; if (el) el.focus({ preventScroll: true }); };
 
   push(arr) { this.setState(s => ({ lines: s.lines.concat(arr) })); }
 
@@ -332,6 +454,7 @@ class Component extends DCLogic {
     if (cmd === 'help' || cmd === '?' || cmd === 'ls') { this.push([echo].concat(t.help)); return; }
     if (cmd === 'about' || cmd === 'whoami') { this.push([echo].concat(t.about)); return; }
     if (cmd === 'skills' || cmd === 'stack') { this.push([echo].concat(t.skills)); return; }
+    if (cmd === 'certs' || cmd === 'certifications') { this.push([echo].concat(t.certs)); return; }
     if (cmd === 'contact' || cmd === 'hire') { this.push([echo].concat(t.contact)); return; }
     this.push([echo, { k: 'err', text: t.notfound('/' + cmd) }]);
   };
@@ -345,6 +468,7 @@ class Component extends DCLogic {
 
   setLang = (lang) => {
     try { localStorage.setItem('gm_lang', lang); } catch (e) {}
+    document.documentElement.lang = lang;
     this.setState({ lang });
   };
 
@@ -400,7 +524,7 @@ class Component extends DCLogic {
       isTxt: l.k === 'txt', isDim: l.k === 'dim', isOk: l.k === 'ok', isErr: l.k === 'err',
       isBullet: l.k === 'bullet', isKv: l.k === 'kv', isLink: l.k === 'link'
     }));
-    const menu = ['/about', '/skills', '/contact', '/help', '/clear'].map(c => ({ cmd: c, run: () => { this.run(c); this.focusInput(); } }));
+    const menu = ['/about', '/skills', '/certs', '/contact', '/help', '/clear'].map(c => ({ cmd: c, run: () => { this.run(c); this.focusInput(); } }));
     const suggestions = this.getSuggestions().map(cmd => ({ cmd: '/' + cmd, complete: () => this.completeCommand(cmd) }));
     const prefix = this.state.input.trimStart().replace(/^\//, '');
     const completionSuffix = suggestions.length && !/\s$/.test(this.state.input)
@@ -416,6 +540,7 @@ class Component extends DCLogic {
       ready: this.state.ready,
       input: this.state.input,
       placeholder: t.placeholder,
+      profileLabel: this.state.lang === 'en' ? 'Read profile ↓' : 'Leer perfil ↓',
       onChange: (e) => this.setState({ input: e.target.value, hpos: -1 }),
       onKeyDown: this.onKeyDown,
       inputRef: this.inputRef,

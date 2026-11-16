@@ -20,3 +20,29 @@ DC runtime (loads React/ReactDOM/Babel from CDN at runtime and renders the
 
 Drop the `CNAME` file (and skip step 3) to use the default
 `<username>.github.io/<repo>` URL instead.
+
+## On-site SEO
+
+The terminal is enhanced with a visible, static HTML profile below it. This gives
+visitors and crawlers direct access to the professional profile, skills,
+certifications, selected work, and contact links without executing JavaScript or
+typing commands. Keep this profile and the terminal's English/Spanish `DATA`
+content consistent when updating career details.
+
+The page includes a descriptive title and summary, canonical URL, Open Graph and
+Twitter metadata, and `ProfilePage` / `Person` JSON-LD. Structured credentials
+describe the two certifications already listed in the profile; they do not imply
+independent verification or guarantee a rich search result. The document language
+tracks the terminal language; the static English profile has its own `lang="en"`.
+
+`robots.txt` permits crawling and points to `sitemap.xml`, which lists the single
+public page. Terminal commands such as `/certs` are interactions, not URL routes,
+so they are not sitemap entries. The language toggle does not have separate URLs,
+so there are no language alternate (`hreflang`) links.
+
+After publishing, verify that `https://mondragon.pe/`, `/robots.txt`, and
+`/sitemap.xml` return successfully. Submit the sitemap in Google Search Console
+and inspect the homepage's rendered HTML and structured data. If the production
+domain changes, update the canonical, social URL, JSON-LD IDs/URLs, robots sitemap
+URL, and sitemap location together. Live HTTP status, indexing, and redirects
+must be checked against the deployed site.

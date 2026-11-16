@@ -91,7 +91,19 @@ input{font:inherit;color:inherit;background:none;border:0;outline:0;}
       <sc-if value="{{ ready }}">
         <div style="display:flex;gap:10px;align-items:baseline;margin-top:18px;padding-bottom:14px;">
           <span style="color:var(--accent2);">❯</span>
-          <input ref="{{ inputRef }}" value="{{ input }}" onChange="{{ onChange }}" onKeyDown="{{ onKeyDown }}" placeholder="{{ placeholder }}" spellcheck="false" autocomplete="off" style="flex:1;color:var(--fg);caret-color:var(--accent);font-size:14px;" />
+          <input ref="{{ inputRef }}" value="{{ input }}" onChange="{{ onChange }}" onKeyDown="{{ onKeyDown }}" placeholder="{{ placeholder }}" aria-label="{{ inputLabel }}" aria-describedby="command-suggestions" spellcheck="false" autocomplete="off" style="flex:1;min-width:0;color:var(--fg);caret-color:var(--accent);font-size:14px;" />
+        </div>
+        <div id="command-suggestions" aria-live="polite">
+          <sc-if value="{{ hasSuggestions }}">
+            <div style="padding:0 0 14px 24px;">
+              <div style="font-size:11px;color:var(--dim);margin-bottom:6px;">{{ completionHint }}</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                <sc-for list="{{ suggestions }}" as="s">
+                  <button type="button" onClick="{{ s.complete }}" style="font:inherit;font-size:12px;padding:3px 8px;border:1px solid var(--line);border-radius:5px;background:transparent;color:var(--accent2);cursor:pointer;" style-hover="color:var(--accent);border-color:var(--accent);">{{ s.cmd }}</button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
         </div>
       </sc-if>
     </div>
@@ -119,6 +131,8 @@ const DATA = {
       { k: 'txt', text: "Type a command or click one below. Run /help for the full list." }
     ],
     placeholder: 'type /about, /skills or /contact',
+    inputLabel: 'Terminal command',
+    completionHint: 'Tab completes the first match · click a command to fill it in',
     help: [
       { k: 'head', text: 'available commands' },
       { k: 'kv', label: '/about', text: 'professional profile' },
@@ -182,6 +196,8 @@ const DATA = {
       { k: 'txt', text: 'Escribe un comando o haz clic abajo. Usa /help para ver la lista completa.' }
     ],
     placeholder: 'escribe /about, /skills o /contact',
+    inputLabel: 'Comando de terminal',
+    completionHint: 'Tab completa la primera opción · haz clic en un comando para escribirlo',
     help: [
       { k: 'head', text: 'comandos disponibles' },
       { k: 'kv', label: '/about', text: 'perfil profesional' },
@@ -235,6 +251,8 @@ const DATA = {
     cleared: 'pantalla limpia.'
   }
 };
+
+const COMMANDS = ['about', 'skills', 'contact', 'help', 'theme', 'clear', 'en', 'es', 'lang', 'whoami', 'stack', 'hire', 'ls', '?', 'cls', 'dark', 'light'];
 
 class Component extends DCLogic {
   state = { lines: [], typing: null, ready: false, input: '', theme: 'dark', lang: 'en', history: [], hpos: -1 };
@@ -329,7 +347,21 @@ class Component extends DCLogic {
 
   toggleLang = () => this.setLang(this.state.lang === 'en' ? 'es' : 'en');
 
+  getSuggestions = () => {
+    const input = this.state.input.trim().toLowerCase();
+    if (!input) return [];
+    const prefix = input.replace(/^\//, '');
+    const matches = COMMANDS.filter(cmd => cmd.startsWith(prefix));
+    if (matches.length === 1 && this.state.input === '/' + matches[0]) return [];
+    return matches;
+  };
+
+  completeCommand = (cmd) => {
+    this.setState({ input: '/' + cmd, hpos: -1 }, this.focusInput);
+  };
+
   onKeyDown = (e) => {
+    if (e.isComposing || e.nativeEvent?.isComposing) return;
     if (e.key === 'Enter') { this.run(this.state.input); this.setState({ input: '' }); return; }
     if (e.key === 'ArrowUp') {
       e.preventDefault();
@@ -348,11 +380,12 @@ class Component extends DCLogic {
       else this.setState({ hpos: p, input: h[p] });
       return;
     }
-    if (e.key === 'Tab') {
-      e.preventDefault();
-      const cur = this.state.input.replace(/^\//, '').toLowerCase();
-      const hit = ['about', 'skills', 'contact', 'help', 'theme', 'clear'].find(c => cur && c.startsWith(cur));
-      if (hit) this.setState({ input: '/' + hit });
+    if (e.key === 'Tab' && !e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey) {
+      const matches = this.getSuggestions();
+      if (matches.length) {
+        e.preventDefault();
+        this.completeCommand(matches[0]);
+      }
     }
   };
 
@@ -365,14 +398,18 @@ class Component extends DCLogic {
       isBullet: l.k === 'bullet', isKv: l.k === 'kv', isLink: l.k === 'link'
     }));
     const menu = ['/about', '/skills', '/contact', '/help', '/clear'].map(c => ({ cmd: c, run: () => { this.run(c); this.focusInput(); } }));
+    const suggestions = this.getSuggestions().map(cmd => ({ cmd: '/' + cmd, complete: () => this.completeCommand(cmd) }));
     return {
-      lines, menu,
+      lines, menu, suggestions,
+      hasSuggestions: suggestions.length > 0,
+      completionHint: t.completionHint,
+      inputLabel: t.inputLabel,
       isTyping: !!this.state.typing,
       typingText: this.state.typing || '',
       ready: this.state.ready,
       input: this.state.input,
       placeholder: t.placeholder,
-      onChange: (e) => this.setState({ input: e.target.value }),
+      onChange: (e) => this.setState({ input: e.target.value, hpos: -1 }),
       onKeyDown: this.onKeyDown,
       inputRef: this.inputRef,
       scrollRef: this.scrollRef,

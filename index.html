@@ -91,7 +91,10 @@ input{font:inherit;color:inherit;background:none;border:0;outline:0;}
       <sc-if value="{{ ready }}">
         <div style="display:flex;gap:10px;align-items:baseline;margin-top:18px;padding-bottom:14px;">
           <span style="color:var(--accent2);">❯</span>
-          <input ref="{{ inputRef }}" value="{{ input }}" onChange="{{ onChange }}" onKeyDown="{{ onKeyDown }}" placeholder="{{ placeholder }}" aria-label="{{ inputLabel }}" aria-describedby="command-suggestions" spellcheck="false" autocomplete="off" style="flex:1;min-width:0;color:var(--fg);caret-color:var(--accent);font-size:14px;" />
+          <div style="display:grid;flex:1;min-width:0;overflow:hidden;font-size:14px;">
+            <div aria-hidden="true" style="grid-area:1 / 1;pointer-events:none;white-space:pre;overflow:hidden;"><span style="color:transparent;">{{ input }}</span><span style="color:var(--fg);opacity:.35;">{{ completionSuffix }}</span></div>
+            <input ref="{{ inputRef }}" value="{{ input }}" onChange="{{ onChange }}" onKeyDown="{{ onKeyDown }}" placeholder="{{ placeholder }}" aria-label="{{ inputLabel }}" aria-describedby="command-suggestions" spellcheck="false" autocomplete="off" style="grid-area:1 / 1;position:relative;width:100%;min-width:0;margin:0;padding:0;line-height:inherit;color:var(--fg);caret-color:var(--accent);font-size:14px;" />
+          </div>
         </div>
         <div id="command-suggestions" aria-live="polite">
           <sc-if value="{{ hasSuggestions }}">
@@ -399,8 +402,12 @@ class Component extends DCLogic {
     }));
     const menu = ['/about', '/skills', '/contact', '/help', '/clear'].map(c => ({ cmd: c, run: () => { this.run(c); this.focusInput(); } }));
     const suggestions = this.getSuggestions().map(cmd => ({ cmd: '/' + cmd, complete: () => this.completeCommand(cmd) }));
+    const prefix = this.state.input.trimStart().replace(/^\//, '');
+    const completionSuffix = suggestions.length && !/\s$/.test(this.state.input)
+      ? suggestions[0].cmd.slice(1 + prefix.length) : '';
     return {
       lines, menu, suggestions,
+      completionSuffix,
       hasSuggestions: suggestions.length > 0,
       completionHint: t.completionHint,
       inputLabel: t.inputLabel,

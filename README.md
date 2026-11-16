@@ -1,48 +1,45 @@
 # mondragon.pe
 
-Terminal-style portfolio for Gabriel Mondragón (Lead DevOps / Cloud Engineer).
+My terminal-style portfolio — I'm Gabriel Mondragón, a Lead DevOps & Cloud
+Engineer based in Peru with 15+ years of experience across software development,
+cloud infrastructure, and production operations.
 
-Static site — `index.html` + `support.js`, no build step. `support.js` is the
-DC runtime (loads React/ReactDOM/Babel from CDN at runtime and renders the
-`<x-dc>` template in `index.html`). It's generated from Claude Design's
-`dc-runtime` — do not hand-edit; re-export from the source project instead.
+**[Visit mondragon.pe](https://mondragon.pe/)**
 
-## Deploy (GitHub Pages)
+## Explore the portfolio
 
-1. Push this repo to GitHub.
-2. Repo Settings → Pages → Source: **Deploy from a branch** → `main` / `/ (root)`.
-3. `CNAME` is already set to `mondragon.pe` — point your DNS:
-   - `A` records for the apex (`mondragon.pe`) to GitHub Pages' IPs
-     (`185.199.108.153`, `.109.153`, `.110.153`, `.111.153`), or
-   - `ALIAS`/`ANAME` to `<username>.github.io` if your DNS provider supports it.
-   - Optional `www` → `CNAME` to `<username>.github.io`.
-4. Wait for DNS to propagate, then enable **Enforce HTTPS** in the Pages settings.
+Type a command and press **Enter**, or click one of the command buttons.
 
-Drop the `CNAME` file (and skip step 3) to use the default
-`<username>.github.io/<repo>` URL instead.
+| Command | What you'll find |
+| --- | --- |
+| `/about` | My professional background and areas of expertise |
+| `/skills` | My technical stack and selected work |
+| `/certs` or `/certifications` | AWS certifications, exam versions, and short skill descriptions |
+| `/contact` | Email and social profiles |
+| `/help` | Available commands |
+| `/theme` | Toggle light and dark themes |
+| `/en` or `/es` | Switch between English and Spanish |
+| `/clear` | Clear the terminal |
 
-## On-site SEO
+Use **Tab** to complete a command and **↑ / ↓** to browse command history.
+You can also click a suggestion to fill in the input.
 
-The terminal is enhanced with a visible, static HTML profile below it. This gives
-visitors and crawlers direct access to the professional profile, skills,
-certifications, selected work, and contact links without executing JavaScript or
-typing commands. Keep this profile and the terminal's English/Spanish `DATA`
-content consistent when updating career details.
+## Certifications
 
-The page includes a descriptive title and summary, canonical URL, Open Graph and
-Twitter metadata, and `ProfilePage` / `Person` JSON-LD. Structured credentials
-describe the two certifications already listed in the profile; they do not imply
-independent verification or guarantee a rich search result. The document language
-tracks the terminal language; the static English profile has its own `lang="en"`.
+- **AWS Certified AI Practitioner — AIF-C01:** AI, machine learning, and generative
+  AI fundamentals on AWS, including responsible AI and security considerations.
+- **AWS Certified Cloud Practitioner — CLF-C02:** AWS cloud concepts, core
+  services, security, shared responsibility, and pricing fundamentals.
 
-`robots.txt` permits crawling and points to `sitemap.xml`, which lists the single
-public page. Terminal commands such as `/certs` are interactions, not URL routes,
-so they are not sitemap entries. The language toggle does not have separate URLs,
-so there are no language alternate (`hreflang`) links.
+## About the project
 
-After publishing, verify that `https://mondragon.pe/`, `/robots.txt`, and
-`/sitemap.xml` return successfully. Submit the sitemap in Google Search Console
-and inspect the homepage's rendered HTML and structured data. If the production
-domain changes, update the canonical, social URL, JSON-LD IDs/URLs, robots sitemap
-URL, and sitemap location together. Live HTTP status, indexing, and redirects
-must be checked against the deployed site.
+A static website built with HTML, CSS, and JavaScript, using a React-based
+terminal interface. It supports English and Spanish, light and dark themes,
+command autocomplete, and keyboard navigation. No build step is required.
+
+## Connect
+
+- [Email](mailto:gabriel@mondragon.pe)
+- [GitHub](https://github.com/gmondragon)
+- [LinkedIn](https://www.linkedin.com/in/gabrielmondragon/)
+- [X](https://x.com/mondraggon)
